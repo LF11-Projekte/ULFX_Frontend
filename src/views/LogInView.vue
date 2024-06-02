@@ -1,5 +1,13 @@
 <script setup lang="ts">
 import TopNavbar from '@/components/TopNavbar.vue'
+import { useVisitorStore } from '@/stores/VisitorStore'
+import router from '@/router'
+
+const logIn = async () => {
+  await useVisitorStore().logIn();
+  await router.push({name: "home"});
+};
+
 </script>
 
 <template>
@@ -20,7 +28,7 @@ import TopNavbar from '@/components/TopNavbar.vue'
             <div id="LogInView-SKA" class="text-neutral-700 bg-cyan-500 hover:bg-cyan-600 cursor-pointer rounded-l-md mr-0.5 mb-2 py-1 px-2">
               SKA
             </div>
-            <div id="LogInView-LogIn" class="text-neutral-700 bg-cyan-500 hover:bg-cyan-600 cursor-pointer rounded-r-md mb-2 py-1 px-12">
+            <div @click="logIn()" id="LogInView-LogIn" class="text-neutral-700 bg-cyan-500 hover:bg-cyan-600 cursor-pointer rounded-r-md mb-2 py-1 px-12">
               LogIn
             </div>
           </div>

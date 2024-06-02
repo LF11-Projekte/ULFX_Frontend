@@ -3,6 +3,7 @@ import IconMagnifyingGlass from '@/components/icons/IconMagnifyingGlass.vue';
 import router from '@/router'
 import ProfilePicture from '@/components/ProfilePicture.vue'
 import { ref } from 'vue'
+import { useVisitorStore } from '@/stores/VisitorStore'
 
 withDefaults(
   defineProps<{
@@ -17,6 +18,11 @@ const showSidebar = ref(false);
 
 const searchFormSubmit = () => {
   router.push({ path: '/search/:q', params: { q: "" } });
+}
+
+const logOut = async () => {
+  await useVisitorStore().logOut();
+  await router.push({ name: 'login' });
 }
 
 </script>
@@ -65,12 +71,16 @@ const searchFormSubmit = () => {
   <!-- Container to show option sidebar (after click on profile picture) -->
   <div v-show="showSidebar" class="absolute left-0 right-0 w-screen h-screen backdrop-blur-[2px] flex">
     <div class="w-full h-full" @click="showSidebar = false;"/>
-    <div class="absolute h-screen min-w-[25rem] w-2/5 max-w-[35rem] bg-neutral-700 right-0 rounded-l-2xl border-[1px] border-neutral-600 text-neutral-100 text-xl block p-5">
-      <RouterLink class="block pl-3 p-1 h-10 w-full justify-center hover:bg-neutral-600 rounded-lg" to="profile">Profilansicht</RouterLink>
-      <RouterLink class="block pl-3 p-1 h-10 w-full justify-center hover:bg-neutral-600 rounded-lg" to="my-posts">Meine Beiträge</RouterLink>
-      <RouterLink class="block pl-3 p-1 h-10 w-full justify-center hover:bg-neutral-600 rounded-lg" to="create-post">Beitrag erstellen</RouterLink>
-      <RouterLink class="block pl-3 p-1 h-10 w-full justify-center hover:bg-neutral-600 rounded-lg" to="group-management">Gruppen verwalten</RouterLink>
-      <RouterLink class="block pl-3 p-1 h-10 w-full justify-center hover:bg-neutral-600 rounded-lg" to="logout">Abmelden</RouterLink>
+    <div class="absolute h-screen min-w-[25rem] w-2/5 max-w-[35rem] bg-neutral-700 right-0 rounded-l-2xl border-[1px] border-neutral-600 text-neutral-100 text-xl p-5">
+      <div class="h-full flex flex-col">
+          <RouterLink class="block pl-3 p-2 h-12 w-full justify-center hover:bg-neutral-600 rounded-lg" to="profile">Profilansicht</RouterLink>
+          <RouterLink class="block pl-3 p-2 h-12 w-full justify-center hover:bg-neutral-600 rounded-lg" to="my-posts">Meine Beiträge</RouterLink>
+          <RouterLink class="block pl-3 p-2 h-12 w-full justify-center hover:bg-neutral-600 rounded-lg" to="create-post">Beitrag erstellen</RouterLink>
+          <RouterLink class="block pl-3 p-2 h-12 w-full justify-center hover:bg-neutral-600 rounded-lg" to="group-management">Gruppen verwalten</RouterLink>
+        <div class="grow h-auto" />
+        <a @click="logOut()" class="cursor-pointer block flex-none bottom-0 pl-3 p-2 h-12 w-full justify-center hover:bg-neutral-600 rounded-lg" to="logout">Abmelden</a>
+        <div class="h-4" />
+      </div>
     </div>
   </div>
 
