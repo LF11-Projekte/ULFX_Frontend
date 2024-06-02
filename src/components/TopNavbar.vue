@@ -4,6 +4,7 @@ import router from '@/router'
 import ProfilePicture from '@/components/ProfilePicture.vue'
 import { ref } from 'vue'
 import { useVisitorStore } from '@/stores/VisitorStore'
+import CookieBanner from '@/components/CookieBanner.vue'
 
 withDefaults(
   defineProps<{
@@ -14,7 +15,8 @@ withDefaults(
   }
 )
 
-const showSidebar = ref(false);
+const showSidebar = ref<boolean>(false);
+const cookiesConfirmed = ref<boolean>(false);
 
 const searchFormSubmit = () => {
   router.push({ path: '/search/:q', params: { q: "" } });
@@ -40,7 +42,6 @@ const logOut = async () => {
           </RouterLink>
         </div>
       </div>
-
 
       <!-- Searchbar -->
       <div v-show="userView" class="relative container h-full mx-auto">
@@ -83,5 +84,7 @@ const logOut = async () => {
       </div>
     </div>
   </div>
+
+  <CookieBanner  />
 
 </template>
