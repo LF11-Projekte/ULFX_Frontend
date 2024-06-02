@@ -1,0 +1,18 @@
+@import "./base.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+main {
+	width: 100%;
+	height: 100%;
+}
+
+#app {
+	width: 100vw;
+	height: 100vh;
+	margin: 0 0;
+	padding: 0 0;
+	font-weight: normal;
+	background-image: linear-gradient(45deg, #4D68D9 20%, #D96570 100%);
+}
