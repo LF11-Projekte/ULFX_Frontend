@@ -7,7 +7,61 @@
     <title>ULFX</title>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <div class="loadpage">
+        <img src="/logo.png" alt="Willkommen bei ULFX! Lade Seite...">
+      </div>
+      <style lang="css">
+          *,
+          *::before,
+          *::after,
+          body {
+              box-sizing: border-box;
+              margin: 0;
+              color: whitesmoke;
+          }
+          body {
+              min-height: 100vh;
+              min-width: 100vw;
+              background-image: linear-gradient(45deg, #4D68D9 20%, #D96570 100%);
+              transition:
+                      color 1s,
+                      background-color 1s;
+              line-height: 1.6;
+              font-size: 15px;
+              text-rendering: optimizeLegibility;
+              -webkit-font-smoothing: antialiased;
+              -moz-osx-font-smoothing: grayscale;
+          }
+          #app {
+              width: 100vw;
+              height: 100vh;
+              margin: 0 0;
+              padding: 0 0;
+              font-weight: normal;
+              background-image: linear-gradient(45deg, #4D68D9 20%, #D96570 100%);
+          }
+          .loadpage {
+              position: fixed;
+              width: 60%;
+              height: 60%;
+              min-width: 45rem;
+              min-height: 30rem;
+              left: 50%;
+              top: 25%;
+              background-color: rgb(82 82 82);
+              transform: translate(-50%, -10%);
+              border-radius: 3em;
+          }
+          img {
+              display: block;
+              max-width: 100%;
+              max-height: 100%;
+              margin: auto;
+              padding: 3em;
+          }
+      </style>
+    </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
