@@ -1,14 +1,13 @@
 import { defineStore } from 'pinia'
 import type { User } from '@/stores/UserStore'
-import { computed, ref } from 'vue'
+import { useConfigurationStore } from '@/stores/ConfigurationStore'
 
-const loggedIn = ref<boolean>(false);
-const cookiesConfirmed = ref<boolean>(false);
 
 export const useVisitorStore = defineStore("visitorStore", {
   state: () => ({
-    isLoggedIn: computed(() => !!loggedIn.value),
-    user: {} as User
+    loggedIn: false,
+    user: {} as User | null,
+    token: null as string | null
   }),
 
   getters: {
@@ -17,16 +16,36 @@ export const useVisitorStore = defineStore("visitorStore", {
 
   actions: {
     async logIn(): Promise<void> {
-      loggedIn.value = true;            // TODO: Handle "right" logIN
+      this.$state.loggedIn = true;            // TODO: Handle "right" logIN
     },
 
     async logOut(): Promise<void> {
-      loggedIn.value = false;
+      this.$state.loggedIn = false;
+      this.$state.user = null;
+      this.$state.token = null;
+
+      // "Save" settings
+      const confStore = useConfigurationStore();
+      const settings = confStore.$state;
+
+      // Clear all local storages
+      window.localStorage.clear();
+      window.sessionStorage.clear();
+
+      // But keep settings, so...
+      confStore.$hydrate();
+      confStore.$state = settings;
     }
   },
 
-  persist: {
-    storage: sessionStorage
-  }
+  persist: [
+    {
+      storage: window.sessionStorage
+    },
+    {
+      storage: window.localStorage
+    }
+  ]
+
 
 });

@@ -1,7 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import HomeView from "../views/HomeView.vue";
 import { useVisitorStore } from '@/stores/VisitorStore'
-import { storeToRefs } from 'pinia'
 
 const routes = [
 	{
@@ -31,14 +30,16 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-	const loggedIn = useVisitorStore().isLoggedIn;
+	const store = useVisitorStore();
+	store.$hydrate({ runHooks: false })
+	const loggedIn = store.loggedIn;
 
 	if (loggedIn) {
-		if(to.name !== "login") next();
+		if (to.name !== "login") next();
 		else next({ name: "home" });
 	}
 	else {
-		if(to.name === "login") next();
+		if (to.name === "login") next();
 		else next({ name: "login" });
 	}
 });
