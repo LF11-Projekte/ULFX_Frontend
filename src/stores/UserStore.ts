@@ -2,9 +2,10 @@ import { defineStore } from "pinia";
 
 export interface IUser {
 	id: number;
-	displayName: string;
+	displayName?: string;
 	email: string;
-	profilePictureUrl: string;
+	profilePictureUrl?: string;
+	followers?: number;
 }
 
 export const useUserStore = defineStore("userStore", {

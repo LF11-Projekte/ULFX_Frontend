@@ -11,19 +11,35 @@ export interface IPost {
   content: string;
 }
 
+
+interface IPostState {
+  post: IPost;
+  apiReqTimestamp: Date;
+}
+
+
 export const usePostStore = defineStore("postStore", {
 
   state: () => ({
-    posts: new Array<IPost>()
+    posts: new Array<IPostState>()
   }),
 
   actions: {
+    async postExists(id: string): Promise<boolean> {
+      if(this.posts.filter(p => p.post.id === id)) return true;
+      // TODO: call API
+      return false;
+    },
 
+    async getPost(id: string): Promise<IPost>{
+      //if(!await usePostStore().postExists() || )
+      // TODO: Api call
+      return this.posts.find(p => p.post.id === id)?.post;
+    }
   },
 
   persist: {
-    storage: document.cookie,
-    key: id => `postStore-${id}`,
+    storage: window.caches
   },
 
 });
