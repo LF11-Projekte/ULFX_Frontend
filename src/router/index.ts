@@ -1,7 +1,7 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import { useVisitorStore } from "@/stores/VisitorStore";
-import { usePostStore } from '@/stores/PostStore'
+import { usePostStore } from "@/stores/PostStore";
 
 const routes = [
 	{
@@ -15,7 +15,7 @@ const routes = [
 		name: "login",
 		component: () => import("@/views/LogInView.vue"),
 		beforeEnter: (to: any, from: any, next: any) => {
-			if(useVisitorStore().loggedIn) next({ path: "/home"});
+			if (useVisitorStore().loggedIn) next({ path: "/home" });
 			else next();
 		}
 	},
@@ -32,8 +32,8 @@ const routes = [
 		name: "post",
 		component: () => import("@/views/PostView.vue"),
 		beforeEnter: (to, from, next) => {
-			if(usePostStore().postExists(to.params.id)) next();
-			else next({path: "/home"});
+			if (usePostStore().postExists(to.params.id)) next();
+			else next({ path: "/home" });
 		}
 	}
 ];

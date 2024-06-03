@@ -1,20 +1,19 @@
 <script setup lang="ts">
 import ProfilePicture from "@/components/ProfilePicture.vue";
 import IconXMark from "@/components/icons/IconXMark.vue";
-import { useUiBehaviourStore } from '@/stores/UiBehaviourStore'
-import { useVisitorStore } from '@/stores/VisitorStore'
-import router from '@/router'
+import { useUiBehaviourStore } from "@/stores/UiBehaviourStore";
+import { useVisitorStore } from "@/stores/VisitorStore";
+import router from "@/router";
 
 const uiBehaviour = useUiBehaviourStore();
 const sidebarVisible = () => uiBehaviour.navUserSidebarVisible;
 const hideSidebar = uiBehaviour.hideNavUserSidebar;
 
 const logVisitorOut = () => {
-  hideSidebar();
-  useVisitorStore().logOut();
-  router.push({ path: "/login" });
+	hideSidebar();
+	useVisitorStore().logOut();
+	router.push({ path: "/login" });
 };
-
 </script>
 
 <template>
@@ -28,17 +27,12 @@ const logVisitorOut = () => {
 			class="absolute h-screen min-w-[25rem] w-2/5 max-w-[35rem] bg-neutral-700 right-0 rounded-l-2xl border-[1px] border-neutral-600 text-neutral-100 text-xl p-5"
 		>
 			<div class="h-full flex flex-col">
-
 				<!-- User and close button -->
 				<div class="flex pl-3 mb-5">
-
 					<RouterLink class="flex items-center cursor-pointer hover:opacity-80" to="my-profile">
-            <div class="size-14 p-0.5 rounded-full cursor-pointer">
-              <ProfilePicture
-                src="/defaultProfile-03.jpg"
-                class="max-h-full max-w-full"
-              />
-            </div>
+						<div class="size-14 p-0.5 rounded-full cursor-pointer">
+							<ProfilePicture src="/defaultProfile-03.jpg" class="max-h-full max-w-full" />
+						</div>
 						<div class="pl-3 my-auto">Benutzername</div>
 					</RouterLink>
 
@@ -57,29 +51,30 @@ const logVisitorOut = () => {
 				<RouterLink
 					class="mt-3 block pl-3 p-2 h-12 w-full justify-center hover:bg-neutral-600 rounded-lg"
 					to="profile"
-          @click="hideSidebar()"
-					>Profilansicht</RouterLink>
+					@click="hideSidebar()"
+					>Profilansicht</RouterLink
+				>
 
 				<RouterLink
 					class="block pl-3 p-2 h-12 w-full justify-center hover:bg-neutral-600 rounded-lg"
 					to="my-posts"
-          @click="hideSidebar()"
+					@click="hideSidebar()"
 					>Meine Beiträge
-        </RouterLink>
+				</RouterLink>
 
 				<RouterLink
 					class="block pl-3 p-2 h-12 w-full justify-center hover:bg-neutral-600 rounded-lg"
 					to="create-post"
-          @click="hideSidebar()"
+					@click="hideSidebar()"
 					>Beitrag erstellen
-        </RouterLink>
+				</RouterLink>
 
 				<RouterLink
 					class="block pl-3 p-2 h-12 w-full justify-center hover:bg-neutral-600 rounded-lg"
 					to="group-management"
-          @click="hideSidebar()"
+					@click="hideSidebar()"
 					>Gruppen verwalten
-        </RouterLink>
+				</RouterLink>
 
 				<div class="grow h-auto" />
 
@@ -87,10 +82,9 @@ const logVisitorOut = () => {
 					@click="logVisitorOut()"
 					class="cursor-pointer block flex-none bottom-0 pl-3 p-2 h-12 w-full justify-center hover:bg-neutral-600 rounded-lg"
 					>Abmelden
-        </a>
+				</a>
 
 				<div class="h-4" />
-
 			</div>
 		</div>
 	</div>

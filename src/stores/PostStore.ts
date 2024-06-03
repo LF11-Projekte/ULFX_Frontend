@@ -1,45 +1,40 @@
-import type { IUser } from '@/stores/UserStore'
+import type { IUser } from "@/stores/UserStore";
 import { defineStore } from "pinia";
 
-
 export interface IPost {
-  id: string;
-  title: string;
-  previewPicture: string;
-  previewText: string;
-  user: IUser;
-  content: string;
+	id: string;
+	title: string;
+	previewPicture: string;
+	previewText: string;
+	user: IUser;
+	content: string;
 }
-
 
 interface IPostState {
-  post: IPost;
-  apiReqTimestamp: Date;
+	post: IPost;
+	apiReqTimestamp: Date;
 }
 
-
 export const usePostStore = defineStore("postStore", {
+	state: () => ({
+		posts: new Array<IPostState>()
+	}),
 
-  state: () => ({
-    posts: new Array<IPostState>()
-  }),
+	actions: {
+		async postExists(id: string): Promise<boolean> {
+			if (this.posts.filter((p) => p.post.id === id)) return true;
+			// TODO: call API
+			return false;
+		},
 
-  actions: {
-    async postExists(id: string): Promise<boolean> {
-      if(this.posts.filter(p => p.post.id === id)) return true;
-      // TODO: call API
-      return false;
-    },
+		async getPost(id: string): Promise<IPost> {
+			//if(!await usePostStore().postExists() || )
+			// TODO: Api call
+			return this.posts.find((p) => p.post.id === id)?.post;
+		}
+	},
 
-    async getPost(id: string): Promise<IPost>{
-      //if(!await usePostStore().postExists() || )
-      // TODO: Api call
-      return this.posts.find(p => p.post.id === id)?.post;
-    }
-  },
-
-  persist: {
-    storage: window.caches
-  },
-
+	persist: {
+		storage: window.caches
+	}
 });

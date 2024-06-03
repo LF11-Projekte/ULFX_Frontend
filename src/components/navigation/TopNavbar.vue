@@ -4,9 +4,8 @@ import router from "@/router";
 import ProfilePicture from "@/components/ProfilePicture.vue";
 
 import CookieBanner from "@/components/CookieBanner.vue";
-import UserSidebar from '@/components/navigation/UserSidebar.vue'
-import { useUiBehaviourStore } from '@/stores/UiBehaviourStore'
-
+import UserSidebar from "@/components/navigation/UserSidebar.vue";
+import { useUiBehaviourStore } from "@/stores/UiBehaviourStore";
 
 const store = useUiBehaviourStore();
 const isLoggedIn = () => store.userLoggedIn;
@@ -15,8 +14,6 @@ const showSidebar = store.showNavUserSidebar;
 const searchFormSubmit = () => {
 	router.push({ path: "/search/:q", params: { q: "" } });
 };
-
-
 </script>
 
 <template>
@@ -65,6 +62,6 @@ const searchFormSubmit = () => {
 		</nav>
 	</header>
 
-  <UserSidebar class="top-0 bottom-0 left-0 right-0 absolute" />
-	<CookieBanner class="top-0 bottom-0  left-0 right-0 absolute" />
+	<UserSidebar class="top-0 bottom-0 left-0 right-0 absolute" />
+	<CookieBanner class="top-0 bottom-0 left-0 right-0 absolute" />
 </template>

@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { useUiBehaviourStore } from '@/stores/UiBehaviourStore';
+import { useUiBehaviourStore } from "@/stores/UiBehaviourStore";
 
 const store = useUiBehaviourStore();
 const renderBanner = () => store.confirmCookiesVisible;
 const confirm = store.confirmCookies;
-
 </script>
 
 <template>
