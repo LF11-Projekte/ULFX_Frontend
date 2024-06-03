@@ -1,6 +1,6 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
-import { useVisitorStore } from '@/stores/VisitorStore'
+import { useVisitorStore } from "@/stores/VisitorStore";
 
 const routes = [
 	{
@@ -13,6 +13,11 @@ const routes = [
 		path: "/login",
 		name: "login",
 		component: () => import("@/views/LogInView.vue")
+	},
+	{
+		path: "/feed",
+		name: "feed",
+		component: () => import("@/views/FeedView.vue")
 	}
 	/*{
     path: "/about",
@@ -22,7 +27,7 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import("../views/AboutView.vue")
   }*/
-]
+];
 
 const router = createRouter({
 	history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -31,14 +36,13 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
 	const store = useVisitorStore();
-	store.$hydrate({ runHooks: false })
+	store.$hydrate({ runHooks: false });
 	const loggedIn = store.loggedIn;
 
 	if (loggedIn) {
 		if (to.name !== "login") next();
 		else next({ name: "home" });
-	}
-	else {
+	} else {
 		if (to.name === "login") next();
 		else next({ name: "login" });
 	}

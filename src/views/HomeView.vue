@@ -1,9 +1,6 @@
 <script setup lang="ts">
-import TopNavbar from '@/components/TopNavbar.vue'
 </script>
 
 <template>
-	<main>
-		<TopNavbar />
-	</main>
+  <p v-for="n in 50">{{ n }} - Lorem ipsum</p>
 </template>
