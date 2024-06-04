@@ -2,8 +2,9 @@
 import { usePostStore, type IPost } from "@/stores/PostStore";
 import router from "@/router";
 import { useRoute } from "vue-router";
-import { onMounted } from "vue";
 import ProfilePicture from "@/components/ProfilePicture.vue";
+import Markdown from "vue3-markdown-it";
+
 
 // $route.params.id
 const postId = parseInt(useRoute().params.id as string);
@@ -12,7 +13,7 @@ const postStore = usePostStore;
 const post = {
 			id: '0',
 			title: 'Hallo Welt',
-			content: 'Hier steht der Posttext drin',
+			content: '# Hier steht der Posttext drin\nHallo Welt\n - ein stichpunkt',
 			previewPicture:
 				'https://blog.depositphotos.com/wp-content/uploads/2017/07/Soothing-nature-backgrounds-2.jpg.webp',
 			previewText:
@@ -99,7 +100,10 @@ const postViewsStr = () => post.views.toString();
 
 			<!-- Post text -->
 			<div class="mt-5">
-				{{ post.content }}
+				<Markdown
+          class="markdown-body"
+          :source="post.content"
+        />
 			</div>
 
 			<hr class="mt-5" />
