@@ -6,6 +6,9 @@ export interface IPost {
 	title: string;
 	previewPicture: string;
 	previewText: string;
+	lastEditDate: Date;
+	creationDate: Date;
+	views: number;
 	user: IUser;
 	content: string;
 }

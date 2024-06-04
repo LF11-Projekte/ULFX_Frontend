@@ -2,19 +2,20 @@ import { defineStore } from "pinia";
 import type { IUser } from "@/stores/UserStore";
 import { useConfigurationStore } from "@/stores/ConfigurationStore";
 
+
+
 export const useVisitorStore = defineStore("visitorStore", {
 	state: () => ({
 		loggedIn: false,
 		user: {} as IUser | null,
-		token: null as string | null,
-		profilePicture: null as string | null
+		token: null as string | null
 	}),
 
 	getters: {},
 
 	actions: {
 		async logIn(): Promise<void> {
-			this.$state.loggedIn = true; // TODO: Handle "right" logIN
+			this.$state.loggedIn = true; // TODO: Handle "right" logIn
 		},
 
 		async logOut(): Promise<void> {

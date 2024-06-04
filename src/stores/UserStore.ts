@@ -6,6 +6,7 @@ export interface IUser {
 	email: string;
 	profilePictureUrl?: string;
 	followers?: number;
+	visitorIsFollower: boolean | undefined;
 }
 
 export const useUserStore = defineStore("userStore", {

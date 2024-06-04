@@ -14,7 +14,11 @@ defineProps<{
 			:style="`background-image: url(${post.previewPicture});`"
 		/>
 		<div class="w-full py-4 px-6">
-			<h1 class="font-medium text-[2.1em]">{{ post.title }}</h1>
+			<RouterLink
+				:to="`/post/${post.id}`"
+				class="font-medium text-[2.1em]">
+				{{ post.title }}
+			</RouterLink>
 			<hr class="my-1 py-0.5" />
 			<div class="text-justify aspect-[10/3] overflow-y-scroll">{{ post.previewText }}</div>
 			<hr class="my-1 py-0.5" />
@@ -31,4 +35,3 @@ defineProps<{
 	</div>
 </template>
 
-<style lang="scss" scoped></style>
