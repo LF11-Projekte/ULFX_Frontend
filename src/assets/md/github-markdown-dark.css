@@ -7,6 +7,17 @@ thank you very much
 TODO: Adjust colors
 */
 
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li::before {
+  content: "• "; /* You can use any character or text here */
+  color: #f0f6fc; /* Customize the color as desired */
+}
+
 .markdown-body {
   color-scheme: dark;
   -ms-text-size-adjust: 100%;
@@ -80,7 +91,7 @@ TODO: Adjust colors
   font-weight: 600;
   padding-bottom: .3em;
   font-size: 2em;
-  border-bottom: 1px solid #21262d;
+  border-bottom: 1px solid #f0f6fc;
 }
 
 .markdown-body mark {
@@ -112,7 +123,6 @@ TODO: Adjust colors
   border-style: none;
   max-width: 100%;
   box-sizing: content-box;
-  background-color: #0d1117;
 }
 
 .markdown-body code,
@@ -131,7 +141,7 @@ TODO: Adjust colors
   box-sizing: content-box;
   overflow: hidden;
   background: transparent;
-  border-bottom: 1px solid #21262d;
+  border-bottom: 1px solid #e5e7eb;
   height: .25em;
   padding: 0;
   margin: 24px 0;
@@ -289,7 +299,7 @@ TODO: Adjust colors
   font-weight: 600;
   padding-bottom: .3em;
   font-size: 1.5em;
-  border-bottom: 1px solid #21262d;
+  border-bottom: 1px solid #e5e7eb;
 }
 
 .markdown-body h3 {
@@ -588,7 +598,7 @@ TODO: Adjust colors
 
 .markdown-body table tr {
   background-color: #0d1117;
-  border-top: 1px solid #21262d;
+  border-top: 1px solid #e5e7eb;
 }
 
 .markdown-body table tr:nth-child(2n) {

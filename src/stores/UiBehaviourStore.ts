@@ -7,12 +7,14 @@ const configureStore = () => useConfigurationStore();
 const visitorStore = () => useVisitorStore();
 
 const navUserSidebarVisibleRef = ref<boolean>(false);
+const reactionSidebarVisibleRef = ref<boolean>(false);
 
 export const useUiBehaviourStore = defineStore("uiBehaviourStore", {
 	state: () => ({
 		confirmCookiesVisible: computed(() => !configureStore().cookiesConfirmed),
 		navUserSidebarVisible: computed(() => navUserSidebarVisibleRef.value),
-		userProfilePicture: computed(() => visitorStore().profilePicture),
+		reactionSidebarVisible: computed(() => reactionSidebarVisibleRef.value),
+		userProfilePicture: computed(() => visitorStore().user?.profilePictureUrl),
 		userLoggedIn: computed(() => visitorStore().loggedIn)
 	}),
 
@@ -27,6 +29,14 @@ export const useUiBehaviourStore = defineStore("uiBehaviourStore", {
 
 		hideNavUserSidebar() {
 			navUserSidebarVisibleRef.value = false;
+		},
+
+		showReactionSidebar() {
+			reactionSidebarVisibleRef.value = true;
+		},
+
+		hideReactionSidebar() {
+			reactionSidebarVisibleRef.value = false;
 		}
 	}
 });

@@ -7,7 +7,7 @@ const routes = [
 	{
 		path: "/",
 		name: "home",
-		component: HomeView,
+		component: () => import("@/views/FeedView.vue"),
 		alias: "/home"
 	},
 	{
@@ -35,6 +35,11 @@ const routes = [
 			if (usePostStore().postExists(to.params.id)) next();
 			else next({ path: "/home" });
 		}
+	},
+	{
+		path: "/profile/:id",
+		name: "profile",
+		component: () => import("@/views/ProfileView.vue"),
 	}
 ];
 

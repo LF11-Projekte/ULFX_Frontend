@@ -4,6 +4,8 @@ import router from "@/router";
 import { useRoute } from "vue-router";
 import ProfilePicture from "@/components/ProfilePicture.vue";
 import Markdown from "vue3-markdown-it";
+import ReactionSidebar from '@/components/navigation/ReactionSidebar.vue'
+import { useUiBehaviourStore } from '@/stores/UiBehaviourStore'
 
 
 // $route.params.id
@@ -13,7 +15,7 @@ const postStore = usePostStore;
 const post = {
 			id: '0',
 			title: 'Hallo Welt',
-			content: '# Hier steht der Posttext drin\nHallo Welt\n - ein stichpunkt',
+			content: "# Hier steht der Posttext drin\nHallo Welt\n* ein stichpunkt\n\n![Bild](https://www.americanexpress.com/de-de/amexcited/media/cache/default/cms/2022/01/Schwarz-Weiss-Fotografie-Titelbild-scaled.jpg)\nc++\n```#include <iostream>\nint main(int argc, char* argv[]) {\n    std::cout << \"Hallo Welt\" << std::endl;    return 0;\n}\n```\n",
 			previewPicture:
 				'https://blog.depositphotos.com/wp-content/uploads/2017/07/Soothing-nature-backgrounds-2.jpg.webp',
 			previewText:
@@ -31,6 +33,8 @@ const post = {
 			}
 		} as IPost;
 
+// Date output calculation
+
 const months = [ "Jan.", "Feb.", "Mrz.", "Apr.", "Mai", "Jun.", "Jul.", "Aug.", "Sep.", "Okt.", "Nov.", "Dez." ];
 
 const postDateStr = () => `${post.creationDate.getDay() + 1}. ${months[post.creationDate.getMonth()]} ${post.creationDate.getFullYear()}`;
@@ -40,6 +44,11 @@ const showPostEditDateStr = () => post.creationDate.getTime() != post.lastEditDa
 const postEditDateStr = () => !showPostEditDateStr() ? `` : `${post.lastEditDate.getDay() + 1}. ${months[post.lastEditDate.getMonth()]} ${post.lastEditDate.getFullYear()}`;
 
 const postViewsStr = () => post.views.toString();
+
+
+//
+const uiBehaviour = useUiBehaviourStore();
+const showSidebar = uiBehaviour.showReactionSidebar;
 
 </script>
 
@@ -109,10 +118,14 @@ const postViewsStr = () => post.views.toString();
 			<hr class="mt-5" />
 
 			<!-- Reaction button TODO: implement reactions -->
-			<div class="w-full mt-5 mb-2 cursor-pointer bg-neutral-700 rounded-lg text-center py-2 text-lg font-semibold text-neutral-300 hover:opacity-80">
+			<div @click="showSidebar" class="w-full mt-5 mb-2 cursor-pointer bg-neutral-700 rounded-lg text-center py-2 text-lg font-semibold text-neutral-300 hover:opacity-80">
 				Zeige Reaktionen
 			</div>
 
 		</div>
 	</div>
+
+  <!-- Handle reactions to post -->
+  <ReactionSidebar post-id="0" />
+
 </template>

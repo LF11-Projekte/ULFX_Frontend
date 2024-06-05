@@ -4,7 +4,11 @@ import PostTile from "@/components/PostTile.vue";
 
 <template>
 	<div class="h-32" />
-	<div class="sticky-nav-group w-full h-10 bg-neutral-600">ABC</div>
+	<div class="sticky-nav-group w-full bg-neutral-600 flex">
+    <RouterLink class="h-full px-5 py-3 hover:bg-neutral-500" to="/">Neuste Beiträge</RouterLink>
+    <RouterLink class="h-full px-5 py-3 hover:bg-neutral-500" to="/">Beiträge von gefolgten Nutzern</RouterLink>
+    <RouterLink class="h-full px-5 py-3 hover:bg-neutral-500" to="/">Frequente Beiträge</RouterLink>
+  </div>
 	<div class="mt-0 mb-10 h-fit p-4 w-full min-h-fit bg-neutral-600 shadow-md bg-opacity-80">
 		<div class="feed-grid gap-7">
 			<PostTile
