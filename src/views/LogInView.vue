@@ -18,7 +18,7 @@ const logIn = async () => {
 					Schulzugangsdaten.
 				</p>
 				<p class="p-3">
-					Mit deiner Anmeldung bestätigst du, die <a>Datenschutzerklärung</a> gelesen zu haben und
+					Mit deiner Anmeldung bestätigst du, die <a class="underline" href="../datenschutz.md">Datenschutzerklärung</a> gelesen zu haben und
 					<b>stimmst dieser in ihrer aktueller Fassung zu.</b>
 				</p>
 				<p class="p-3 mb-10">Bitte klicke auf "LogIn" und melde dich an.</p>

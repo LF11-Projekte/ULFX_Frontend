@@ -15,7 +15,8 @@ export const useVisitorStore = defineStore("visitorStore", {
 
 	actions: {
 		async logIn(): Promise<void> {
-			this.$state.loggedIn = true; // TODO: Handle "right" logIn
+			await window.open("localhost:8000/auth/login", "window", "popup");
+		this.$state.loggedIn = true; // TODO: Handle "right" logIn
 		},
 
 		async logOut(): Promise<void> {

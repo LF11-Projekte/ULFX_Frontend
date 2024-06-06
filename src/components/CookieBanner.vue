@@ -13,8 +13,8 @@ const confirm = store.confirmCookies;
 			<p class="p-2 text-justify">
 				Um die Funktionalität unserer Website sicher stellen zu können, nutzen wir Cookies. Es werden keine
 				Daten außerhalb gesetzlicher Rahmen Drittanbieter weitergegeben. Genaueres lässt sich aus unserer
-				<a>Datenschutzerklärung</a> entnehmen Bitte bestätige, dass du damit einverstanden bist und du unser
-				<a>Datenschutzerklärung</a>
+				<a class="underline" href="../datenschutz.md">Datenschutzerklärung</a> entnehmen Bitte bestätige, dass du damit einverstanden bist und du unser
+				<a class="underline" href="../datenschutz.md">Datenschutzerklärung</a>
 				in ihrer aktueller Fassung gelesen hast und dieser zustimmst, indem du auf "Akzeptieren und Fortfahren"
 				klickst.
 			</p>
