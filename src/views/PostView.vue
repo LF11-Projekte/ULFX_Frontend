@@ -1,12 +1,11 @@
 <script setup lang="ts">
+import { ref } from "vue";
 import { usePostStore, type IPost } from "@/stores/PostStore";
-import router from "@/router";
 import { useRoute } from "vue-router";
 import ProfilePicture from "@/components/ProfilePicture.vue";
 import Markdown from "vue3-markdown-it";
 import ReactionSidebar from '@/components/navigation/ReactionSidebar.vue'
 import { useUiBehaviourStore } from '@/stores/UiBehaviourStore'
-import {ref} from "vue";
 
 
 // $route.params.id
@@ -14,13 +13,11 @@ const postId = parseInt(useRoute().params.id as string);
 const postStore = usePostStore();
 
 
-// TODO: Get post from poststore
+// Get post from poststore
 const post = ref(await postStore.getPostById(postId.toString()) as IPost);
-console.log(postId.toString());
-console.log(post);
+
 
 // Date output calculation
-
 const months = [ "Jan.", "Feb.", "Mrz.", "Apr.", "Mai", "Jun.", "Jul.", "Aug.", "Sep.", "Okt.", "Nov.", "Dez." ];
 
 const postDateStr = () => `${post.value.creationDate.getDay() + 1}. ${months[post.value.creationDate.getMonth()]} ${post.value.creationDate.getFullYear()}`;
@@ -75,6 +72,7 @@ const showSidebar = uiBehaviour.showReactionSidebar;
 					</div>
 
 				</div>
+
 			</div>
 
 			<hr class="mt-4" />
@@ -114,6 +112,6 @@ const showSidebar = uiBehaviour.showReactionSidebar;
 	</div>
 
 	<!-- Handle reactions to post -->
-	<ReactionSidebar post-id="0" />
+	<ReactionSidebar :post="post" />
 
 </template>

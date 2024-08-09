@@ -9,6 +9,10 @@ export interface IUser {
 	visitorIsFollower?: boolean;
 }
 
+const defaultProfilePicture = (userId: number) : string => {
+	return `/defaultProfile-0${(userId % 4) + 1}.jpg`;
+}
+
 export const useUserStore = defineStore("userStore", {
 	state: () => ({
 		users: [
@@ -31,7 +35,7 @@ export const useUserStore = defineStore("userStore", {
 			{
 				id: 2,
 				email: "schenkel@bszetdd.lernsax.de",
-				profilePictureUrl: "https://avatars.githubusercontent.com/u/61469501",
+				profilePictureUrl: defaultProfilePicture(2),
 				followers: 8,
 				visitorIsFollower: false,
 			} as IUser,
@@ -48,7 +52,11 @@ export const useUserStore = defineStore("userStore", {
 
 	actions: {
 		getUser(id: string) : IUser | undefined {
-			return this.users.find((user) => user.id.toString() == id);
+			const user = this.users.find((user) => user.id.toString() == id);
+			if(user) {
+				user.displayName = user.displayName ?? user.email;
+				user.profilePictureUrl = user.profilePictureUrl ?? defaultProfilePicture(user.id);
+			}
 		}
 	}
 

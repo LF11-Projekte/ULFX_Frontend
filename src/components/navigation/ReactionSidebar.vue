@@ -1,19 +1,21 @@
 <script setup lang="ts">
+import { ref } from "vue";
 import ProfilePicture from "@/components/ProfilePicture.vue";
 import IconXMark from "@/components/icons/IconXMark.vue";
 import { useUiBehaviourStore } from "@/stores/UiBehaviourStore";
-import router from "@/router";
-import { usePostStore } from "@/stores/PostStore";
+import { type IPost } from "@/stores/PostStore";
+import { useReactionStore } from "@/stores/ReactionStore";
 
 defineProps<{
-  postId: string;
+  post: IPost;
 }>();
 
 const uiBehaviour = useUiBehaviourStore();
 const sidebarVisible = () => uiBehaviour.reactionSidebarVisible;
 const hideSidebar = uiBehaviour.hideReactionSidebar;
 
-const postStore = usePostStore();
+
+const reactionStore = useReactionStore();
 
 </script>
 
@@ -43,16 +45,59 @@ const postStore = usePostStore();
 
           <div
             class="w-full mt-5 mb-4 cursor-pointer bg-neutral-600 rounded-md text-center py-2 text-lg font-semibold text-neutral-300 hover:opacity-80"
+            @click="() => {}"
           >
             Kommentar verfassen
           </div>
 
           <hr />
 
+          <!-- Our reactions -->
           <div
-            
+            v-for="{ reaction } in reactionStore.reactionStates" :key="reaction.id"
             class=""
           >
+
+            <!-- Show the profile of the reactor and the date -->
+            <div class="h-14 flex w-full pt-4">
+              <ProfilePicture :src="reaction.user.profilePictureUrl" class="h-[3.2rem] w-[3.2rem] p-0.5" />
+              <div class="block pl-3 my-auto">
+
+                <!-- Username -->
+                <RouterLink
+                  :to="`/profile/${reaction.user.id}`"
+                  class="mb-0 font-semibold text-xl">
+                  {{ reaction.user.displayName }}
+                </RouterLink>
+                
+                <!-- Follower count and (un-)follow button-->
+                <div class="mt-0 flex w-fit font-normal text-lg">
+                  {{
+                    (() : string => {
+                      switch(Math.floor((reaction.creationDate.getTime() - new Date().getTime()) / 1000 / 60 / 60 / 24)) {
+                        case 0: return "heute";
+                        case 1: return "gestern";
+                        case 2: return "vorgestern";
+                        case 3: return "vor 3 Tagen";
+                        case 4: return "vor 4 Tagen";
+                        case 5: return "vor 5 Tagen";
+                        case 6: return "vor 6 Tagen";
+                        default:
+                          return `${reaction.creationDate.getDate()}.&thinsp;${reaction.creationDate.getMonth()}.&thinsp;${reaction.creationDate.getFullYear()}`;
+                      }
+                    }).call(null)
+                  }}
+                </div>
+
+              </div>
+
+				    </div>
+
+            <div class="p-2 my-3 font-normal text-base hyphens-auto">
+              {{ reaction.text }}
+            </div>
+          
+          <hr />
 
           </div>
 
