@@ -6,44 +6,27 @@ import ProfilePicture from "@/components/ProfilePicture.vue";
 import Markdown from "vue3-markdown-it";
 import ReactionSidebar from '@/components/navigation/ReactionSidebar.vue'
 import { useUiBehaviourStore } from '@/stores/UiBehaviourStore'
+import {ref} from "vue";
 
 
 // $route.params.id
 const postId = parseInt(useRoute().params.id as string);
-const postStore = usePostStore;
+const postStore = usePostStore();
+
+
 // TODO: Get post from poststore
-const post = {
-			id: '0',
-			title: 'Hallo Welt',
-			content: "# Hier steht der Posttext drin\nHallo Welt\n* ein stichpunkt\n\n![Bild](https://www.americanexpress.com/de-de/amexcited/media/cache/default/cms/2022/01/Schwarz-Weiss-Fotografie-Titelbild-scaled.jpg)\nc++\n```#include <iostream>\nint main(int argc, char* argv[]) {\n    std::cout << \"Hallo Welt\" << std::endl;    return 0;\n}\n```\n",
-			previewPicture:
-				'https://blog.depositphotos.com/wp-content/uploads/2017/07/Soothing-nature-backgrounds-2.jpg.webp',
-			previewText:
-				'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
-			creationDate: new Date(2020, 10, 15),
-			lastEditDate: new Date(2024, 5, 3),
-			views: 200,
-				user: {
-				id: 0,
-				displayName: 'Testnutzer',
-				email: 'test@testnutzer.com',
-				profilePictureUrl: '/defaultProfile-01.jpg',
-				followers: 200,
-				visitorIsFollower: true
-			}
-		} as IPost;
+const post = ref(await postStore.getPostById(postId.toString()) as IPost);
+console.log(postId.toString());
+console.log(post);
 
 // Date output calculation
 
 const months = [ "Jan.", "Feb.", "Mrz.", "Apr.", "Mai", "Jun.", "Jul.", "Aug.", "Sep.", "Okt.", "Nov.", "Dez." ];
 
-const postDateStr = () => `${post.creationDate.getDay() + 1}. ${months[post.creationDate.getMonth()]} ${post.creationDate.getFullYear()}`;
-
-const showPostEditDateStr = () => post.creationDate.getTime() != post.lastEditDate.getTime();
-
-const postEditDateStr = () => !showPostEditDateStr() ? `` : `${post.lastEditDate.getDay() + 1}. ${months[post.lastEditDate.getMonth()]} ${post.lastEditDate.getFullYear()}`;
-
-const postViewsStr = () => post.views.toString();
+const postDateStr = () => `${post.value.creationDate.getDay() + 1}. ${months[post.value.creationDate.getMonth()]} ${post.value.creationDate.getFullYear()}`;
+const showPostEditDateStr = () => post.value.creationDate.getTime() != post.value.lastEditDate.getTime();
+const postEditDateStr = () => !showPostEditDateStr() ? `` : `${post.value.lastEditDate.getDay() + 1}. ${months[post.value.lastEditDate.getMonth()]} ${post.value.lastEditDate.getFullYear()}`;
+const postViewsStr = () => post.value.views.toString();
 
 
 //
@@ -53,6 +36,7 @@ const showSidebar = uiBehaviour.showReactionSidebar;
 </script>
 
 <template>
+
 	<div class="min-w-full lg:rounded-b-2xl lg:min-w-[1024px] w-2/3 mx-auto h-fit bg-neutral-600 mb-40">
 		
 		<!-- Post image -->
@@ -72,7 +56,11 @@ const showSidebar = uiBehaviour.showReactionSidebar;
 					<div class="block pl-3 my-auto">
 
 						<!-- Username -->
-						<div class="mb-1 font-semibold text-2xl">{{ post.user.displayName ?? post.user.email }}</div>
+						<RouterLink
+							:to="`/profile/${post.user.id}`"
+							class="mb-1 font-semibold text-2xl">
+							{{ post.user.displayName ?? post.user.email }}
+						</RouterLink>
 						
 						<!-- Follower count and (un-)follow button-->
 						<div class="mt-0.5 flex w-fit hover:opacity-80 cursor-pointer">
@@ -125,7 +113,7 @@ const showSidebar = uiBehaviour.showReactionSidebar;
 		</div>
 	</div>
 
-  <!-- Handle reactions to post -->
-  <ReactionSidebar post-id="0" />
+	<!-- Handle reactions to post -->
+	<ReactionSidebar post-id="0" />
 
 </template>

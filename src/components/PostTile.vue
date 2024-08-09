@@ -26,11 +26,12 @@ defineProps<{
 			<!-- User profile -->
 			<RouterLink
 				:to="`/profile/${post.user.id}`"
-				class="w-full mt-4 flex items-center cursor-pointer hover:opacity-80"
+				class="w-fit mt-4 flex items-center cursor-pointer hover:opacity-80"
 			>
 				<ProfilePicture :src="post.user.profilePictureUrl" class="w-10 h-10" />
-				<div class="pl-3 text-lg">{{ post.user.displayName }}</div>
+				<div class="pl-3 text-lg">{{ post.user.displayName ?? post.user.email }}</div>
 			</RouterLink>
+
 		</div>
 	</div>
 </template>

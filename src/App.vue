@@ -8,7 +8,12 @@ import TopNavbar from "@/components/navigation/TopNavbar.vue";
 		<TopNavbar class="sticky top-0" />
 		<main class="flex-grow auto-cols-auto overflow-hidden">
 			<div class="w-full mt-[3.5rem] h-[calc(100%-3.5rem)] overflow-y-scroll">
-				<RouterView />
+				<Suspense>
+					<RouterView />
+					<template #fallback>
+						Unbekannter Fehler (Suspense region)
+					</template>
+				</Suspense>
 			</div>
 		</main>
 	</div>
