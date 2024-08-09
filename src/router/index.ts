@@ -1,5 +1,4 @@
 import { createRouter, createWebHashHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
 import { useVisitorStore } from "@/stores/VisitorStore";
 import { usePostStore } from "@/stores/PostStore";
 
@@ -16,6 +15,15 @@ const routes = [
 		component: () => import("@/views/LogInView.vue"),
 		beforeEnter: (to: any, from: any, next: any) => {
 			if (useVisitorStore().loggedIn) next({ path: "/home" });
+			else next();
+		},
+	},
+	{
+		path: "/login-success",
+		name: "login-success",
+		component: () => import("@/views/LogInView.vue"),
+		beforeEnter: async (to: any, from: any, next: any) => {
+			if (await useVisitorStore().logInSucceed(to.query.token as string)) next({ name: "home" });
 			else next();
 		}
 	},
@@ -50,10 +58,10 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
 	if (useVisitorStore().loggedIn) {
-		if (to.name !== "login") next();
+		if (to.name !== "login" && to.name !== "login-success") next();
 		else next({ name: "home" });
 	} else {
-		if (to.name === "login") next();
+		if (to.name === "login" || to.name === "login-success") next();
 		else next({ name: "login" });
 	}
 });

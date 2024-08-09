@@ -1,8 +1,10 @@
 import { defineStore } from "pinia";
+import { apiRoute} from '@/backend-api'
 import type { IUser } from "@/stores/UserStore";
 import { useConfigurationStore } from "@/stores/ConfigurationStore";
+import axios from 'axios'
 
-
+const setLoggedInTrue = () => useVisitorStore().loggedIn = true;
 
 export const useVisitorStore = defineStore("visitorStore", {
 	state: () => ({
@@ -15,13 +17,33 @@ export const useVisitorStore = defineStore("visitorStore", {
 
 	actions: {
 		async logIn(): Promise<void> {
-			this.$state.loggedIn = true; // TODO: Handle "right" logIn
+			if(this.loggedIn) return;
+			location.href = apiRoute("auth/login");
+		},
+
+		async logInSucceed(token: string): Promise<boolean> {
+			axios.get(apiRoute("user/me")).then((response) => {
+				this.user = {
+					id: response.data.user_id,
+					displayName: response.data.displayName,
+					email: response.data.adname,
+					profilePictureUrl: response.data.profilePicture,
+					description: response.data.description,
+				}
+				this.loggedIn = true;
+				console.log(response.data);
+
+			}).catch(
+				() => console.error("API not reachable")
+			);
+			this.token = token;
+
+			return this.loggedIn;
 		},
 
 		async logOut(): Promise<void> {
 			this.$state.loggedIn = false;
 			this.$state.user = null;
-			this.$state.token = null;
 
 			// "Save" settings
 			const confStore = useConfigurationStore();
@@ -34,7 +56,10 @@ export const useVisitorStore = defineStore("visitorStore", {
 			// But keep settings, so...
 			confStore.$hydrate();
 			confStore.$state = settings;
-		}
+
+			await fetch(apiRoute("auth/logout"), { credentials: "include" });
+		},
+
 	},
 
 	persist: [

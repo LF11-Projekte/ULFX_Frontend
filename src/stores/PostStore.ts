@@ -1,6 +1,14 @@
 import type { IUser } from "@/stores/UserStore";
 import { defineStore } from "pinia";
 
+export interface IComment {
+	id: string;
+	text: string;
+	postDate: Date;
+	user: IUser;
+	answers: IComment[] | null;
+}
+
 export interface IPost {
 	id: string;
 	title: string;
@@ -11,6 +19,7 @@ export interface IPost {
 	views: number;
 	user: IUser;
 	content: string;
+	comments: IComment[];
 }
 
 interface IPostState {
