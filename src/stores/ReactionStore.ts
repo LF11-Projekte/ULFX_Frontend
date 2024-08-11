@@ -19,23 +19,32 @@ interface IReactionState {
 }
 
 
+const generateReactions = (count: number) : Array<IReactionState> => {
+    const reactions = Array<IReactionState>();
+
+    for(let i = 0; i < count; i++) {
+        const reaction = {
+            reaction: {
+                id: i.toString(),
+                text: `Hallo Welt\nReaction #${i}`,
+                lastEditDate: new Date(),
+                creationDate: new Date(),
+                parentType: "POST",
+                parent: usePostStore().posts.find(o=>o.post.id=='0')?.post,
+                user: useUserStore().users.find(o=>o.id==0) as IUser
+            } as IReaction,
+            apiReqTimestamp: new Date()
+        } as IReactionState;
+
+        reactions.push(reaction);
+    }
+
+    return reactions;
+}
+
 export const useReactionStore = defineStore("reactionStore", {
     state: () => ({
-        reactionStates:
-            [
-                {
-                    reaction: {
-                        id: "0",
-                        text: "Hallo Welt",
-                        lastEditDate: new Date(),
-                        creationDate: new Date(),
-                        parentType: "POST",
-                        parent: usePostStore().posts.find(o=>o.post.id=='0')?.post,
-                        user: useUserStore().users.find(o=>o.id==0) as IUser
-                    } as IReaction,
-                    apiReqTimestamp: new Date()
-                } as IReactionState
-            ] as Array<IReactionState>
+        reactionStates: generateReactions(7) as Array<IReactionState>
     }),
 
     actions: {

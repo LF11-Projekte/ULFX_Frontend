@@ -51,12 +51,14 @@ export const useUserStore = defineStore("userStore", {
 	}),
 
 	actions: {
-		getUser(id: string) : IUser | undefined {
-			const user = this.users.find((user) => user.id.toString() == id);
+		getUserById(id: string) : IUser | undefined {
+			const user = this.users.find(user => user.id.toString() == id);
 			if(user) {
 				user.displayName = user.displayName ?? user.email;
 				user.profilePictureUrl = user.profilePictureUrl ?? defaultProfilePicture(user.id);
 			}
+
+			return user;
 		}
 	}
 

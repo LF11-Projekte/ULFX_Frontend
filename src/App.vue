@@ -11,7 +11,7 @@ import TopNavbar from "@/components/navigation/TopNavbar.vue";
 				<Suspense>
 					<RouterView />
 					<template #fallback>
-						Unbekannter Fehler (Suspense region)
+						Unbekannter Fehler (Suspense region in ``App.vue'')
 					</template>
 				</Suspense>
 			</div>

@@ -39,5 +39,6 @@ const postStore = usePostStore();
 	position: -webkit-sticky;
 	position: sticky;
 	top: 0;
+	z-index: 9;
 }
 </style>
