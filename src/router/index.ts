@@ -1,5 +1,4 @@
 import { createRouter, createWebHashHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
 import { useVisitorStore } from "@/stores/VisitorStore";
 import { usePostStore } from "@/stores/PostStore";
 

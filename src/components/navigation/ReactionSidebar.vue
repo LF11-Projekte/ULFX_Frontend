@@ -5,7 +5,7 @@ import IconXMark from "@/components/icons/IconXMark.vue";
 import { useUiBehaviourStore } from "@/stores/UiBehaviourStore";
 import { type IPost } from "@/stores/PostStore";
 import { useReactionStore } from "@/stores/ReactionStore";
-import { flattenDiagnosticMessageText } from "typescript";
+
 
 defineProps<{
   post: IPost;
@@ -28,11 +28,11 @@ const newCommentText = ref("");
   <!-- Container to show option sidebar (after click on profile picture) -->
   <div v-show="sidebarVisible()" class="absolute z-10 left-0 right-0 top-0 w-screen h-screen backdrop-blur-[2px] flex">
     <!-- Click region to return to previous page -->
-    <div class="w-full h-full" @click="hideSidebar()" />
+    <div class="sm:w-full sm:h-full" @click="hideSidebar()" />
 
       <!-- Blued background and actual sidebar -->
       <div
-        class="absolute h-screen min-w-[25rem] w-2/5 max-w-[35rem] bg-neutral-700 right-0 rounded-l-2xl border-[1px] border-neutral-600 text-neutral-100 text-xl p-5"
+        class="absolute h-screen min-w-[32rem] sm:w-2/5 sm:max-w-[35rem] w-full bg-neutral-700 right-0 rounded-l-2xl border-[1px] border-neutral-600 text-neutral-100 text-xl p-5"
       >
         <div class="h-full flex flex-col ml-1.5">
           

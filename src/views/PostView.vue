@@ -29,6 +29,7 @@ const postViewsStr = () => post.value.views.toString();
 //
 const uiBehaviour = useUiBehaviourStore();
 const showSidebar = uiBehaviour.showReactionSidebar;
+const username = ref(post.value.user.displayName ?? post.value.user.email);
 
 </script>
 
@@ -44,23 +45,29 @@ const showSidebar = uiBehaviour.showReactionSidebar;
 
 		<!-- Top row with publisher and Title -->
 		<div class="pt-3 px-6 pb-4">
-			<div class="flex min-h-14">
-				<h1 class="flex-grow font-bold text-4xl my-auto">{{ post.title }}</h1>
+			<div class="sm:flex min-h-14 block ">
+				<h1 class="flex-grow font-bold text-4xl my-auto w-fit">{{ post.title }}</h1>
 
 				<!-- Publisher -->
-				<div class="w-60 flex">
-					<ProfilePicture :src="post.user.profilePictureUrl" class="h-16 w-16 p-0.5" />
+				<div class="w-60 flex min-w-fit sm:py-0 py-5">
+					<ProfilePicture :src="post.user.profilePictureUrl" class="h-16 w-16 min-w-16 p-0.5" />
 					<div class="block pl-3 my-auto">
 
 						<!-- Username -->
 						<RouterLink
 							:to="`/profile/${post.user.id}`"
-							class="mb-1 font-semibold text-2xl">
-							{{ post.user.displayName ?? post.user.email }}
+							class="mb-1 font-semibold"
+							:class="
+								username.length < 14
+								? 'text-2xl'
+								: username.length < 24
+								? 'text-xl'
+								: 'text-lg'"
+							>{{ username }}
 						</RouterLink>
 						
 						<!-- Follower count and (un-)follow button-->
-						<div class="mt-0.5 flex w-fit hover:opacity-80 cursor-pointer">
+						<div class="mt-0.5 flex sm:w-fit hover:opacity-80 cursor-pointer">
 							<div class="bg-neutral-200 font-semibold text-neutral-600 py-0.5 pr-1 pl-1.5 rounded-l-lg">
 								{{ post.user.visitorIsFollower === true ? "Entfolgen" : "Folgen" }}
 							</div>
