@@ -99,7 +99,7 @@ const newCommentText = ref("");
               <div class="h-14 flex w-full pt-4">
 
                 <!-- Show the profile of the reactor and the date -->
-                <ProfilePicture :src="reaction.user.profilePictureUrl" class="h-[3.2rem] w-[3.2rem] p-0.5" />
+                <ProfilePicture :src="reaction.user.profilePictureUrl ?? ''" class="h-[3.2rem] w-[3.2rem] p-0.5" />
 
                 <div class="block pl-3 my-auto">
 

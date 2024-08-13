@@ -3,12 +3,16 @@ import type { IPost } from "@/stores/PostStore";
 import ProfilePicture from "@/components/ProfilePicture.vue";
 
 defineProps<{
-	post: IPost;
+	posts: IPost[];
 }>();
+
 </script>
 
 <template>
-	<div class="h-fit w-full mx-auto my-3 bg-neutral-700 rounded-2xl">
+	<div
+		v-for="post in posts" :key="post.id"
+		class="h-fit w-full mx-auto my-3 bg-neutral-700 rounded-2xl"
+	>
 
 		<!-- Preview image of post -->
 		<div class="relative h-fit">
@@ -39,7 +43,7 @@ defineProps<{
 				:to="`/profile/${post.user.id}`"
 				class="w-fit mt-4 flex items-center cursor-pointer hover:opacity-80"
 			>
-				<ProfilePicture :src="post.user.profilePictureUrl" class="w-10 h-10" />
+				<ProfilePicture :src="post.user.profilePictureUrl ?? ''" class="w-10 h-10" />
 				<div class="pl-3 text-lg">{{ post.user.displayName ?? post.user.email }}</div>
 			</RouterLink>
 

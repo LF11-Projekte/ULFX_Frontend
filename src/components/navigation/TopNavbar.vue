@@ -1,18 +1,24 @@
 <script setup lang="ts">
-import IconMagnifyingGlass from "@/components/icons/IconMagnifyingGlass.vue";
-import router from "@/router";
-import ProfilePicture from "@/components/ProfilePicture.vue";
 
-import CookieBanner from "@/components/CookieBanner.vue";
+import router from "@/router";
+
+import ProfilePicture from "@/components/ProfilePicture.vue";
 import UserSidebar from "@/components/navigation/UserSidebar.vue";
+import IconMagnifyingGlass from "@/components/icons/IconMagnifyingGlass.vue";
+import CookieBanner from "@/components/CookieBanner.vue";
+
 import { useUiBehaviourStore } from "@/stores/UiBehaviourStore";
+import { reactive } from "vue";
+
 
 const store = useUiBehaviourStore();
 const isLoggedIn = () => store.userLoggedIn;
 const showSidebar = store.showNavUserSidebar;
+const searchForm = reactive<{ prompt: string }>({ prompt: "" });
 
 const searchFormSubmit = () => {
-	router.push({ path: "/search/:q", params: { q: "" } });
+	router.push({ path: "/search/" + searchForm.prompt });
+	console.log( searchForm.prompt )
 };
 </script>
 
@@ -39,6 +45,7 @@ const searchFormSubmit = () => {
 						</span>
 						<input
 							type="search"
+							v-model="searchForm.prompt"
 							class="py-2.5 mt-1.5 min-w-48 w-full text-sm text-neutral-100 bg-neutral-800 rounded-md pl-10 focus:outline-none focus:outline-1 focus:outline-neutral-500 focus:shadow-2xl"
 							placeholder="Durchstöbere ULFX ..."
 							autocomplete="off"

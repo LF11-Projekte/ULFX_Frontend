@@ -30,7 +30,7 @@ const routes = [
 		path: "/post/:id",
 		name: "post",
 		component: () => import("@/views/PostView.vue"),
-		beforeEnter: async (to, from, next) => {
+		beforeEnter: async (to: any, from: any, next: any) => {
 			if (await usePostStore().postExists(to.params.id)) next();
 			else next({ path: "/home" });
 		}

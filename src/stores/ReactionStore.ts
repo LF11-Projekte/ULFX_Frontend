@@ -30,7 +30,7 @@ const generateReactions = (count: number) : Array<IReactionState> => {
                 lastEditDate: new Date(),
                 creationDate: new Date(),
                 parentType: "POST",
-                parent: usePostStore().posts.find(o=>o.post.id=='0')?.post,
+                parent: usePostStore().posts.find(o=>o.id=='0'),
                 user: useUserStore().users.find(o=>o.id==0) as IUser
             } as IReaction,
             apiReqTimestamp: new Date()
@@ -57,6 +57,6 @@ export const useReactionStore = defineStore("reactionStore", {
     },
 
     persist: {
-        storage: window.caches
+        storage: localStorage
     }
 });

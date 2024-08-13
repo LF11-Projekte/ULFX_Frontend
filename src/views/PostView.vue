@@ -1,21 +1,20 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { usePostStore, type IPost } from "@/stores/PostStore";
 import { useRoute } from "vue-router";
 import ProfilePicture from "@/components/ProfilePicture.vue";
-import Markdown from "vue3-markdown-it";
-import ReactionSidebar from '@/components/navigation/ReactionSidebar.vue'
-import { useUiBehaviourStore } from '@/stores/UiBehaviourStore'
+import ReactionSidebar from "@/components/navigation/ReactionSidebar.vue";
+import { useUiBehaviourStore } from "@/stores/UiBehaviourStore";
+import { marked } from "marked";
 
 
 // $route.params.id
 const postId = parseInt(useRoute().params.id as string);
 const postStore = usePostStore();
 
-
 // Get post from poststore
 const post = ref(await postStore.getPostById(postId.toString()) as IPost);
-
+//const markdown = computed(() => marked(post.value));
 
 // Date output calculation
 const months = [ "Jan.", "Feb.", "Mrz.", "Apr.", "Mai", "Jun.", "Jul.", "Aug.", "Sep.", "Okt.", "Nov.", "Dez." ];
@@ -50,7 +49,7 @@ const username = ref(post.value.user.displayName ?? post.value.user.email);
 
 				<!-- Publisher -->
 				<div class="w-60 flex min-w-fit sm:py-0 py-5">
-					<ProfilePicture :src="post.user.profilePictureUrl" class="h-16 w-16 min-w-16 p-0.5" />
+					<ProfilePicture :src="post.user.profilePictureUrl ?? ''" class="h-16 w-16 min-w-16 p-0.5" />
 					<div class="block pl-3 my-auto">
 
 						<!-- Username -->
@@ -102,10 +101,10 @@ const username = ref(post.value.user.displayName ?? post.value.user.email);
 
 			<!-- Post text -->
 			<div class="mt-5">
-				<Markdown
-          class="markdown-body"
-          :source="post.content"
-        />
+				<div
+          			class="markdown-body"
+          			v-html="marked(post.content)"
+        		/>
 			</div>
 
 			<hr class="mt-5" />

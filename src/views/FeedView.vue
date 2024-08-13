@@ -1,8 +1,13 @@
 <script setup lang="ts">
-import PostTile from "@/components/PostTile.vue";
-import { usePostStore } from "@/stores/PostStore";
 
+// Import components
+import PostTiles from "@/components/PostTiles.vue";
+
+// Using store
+import { usePostStore } from "@/stores/PostStore";
+import { ref } from "vue";
 const postStore = usePostStore();
+const posts = ref(postStore.posts);
 
 </script>
 
@@ -18,10 +23,7 @@ const postStore = usePostStore();
 
 	<div class="mt-0 mb-10 h-fit p-4 w-full min-h-fit bg-neutral-600 shadow-md bg-opacity-80">
 		<div class="feed-grid gap-7">
-			<PostTile
-				v-for="post in postStore.posts" v-bind:key="post.post.id"
-				:post="post.post"
-			/>
+			<PostTiles :posts="posts" />
 		</div>
 	</div>
 
